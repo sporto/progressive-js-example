@@ -12,7 +12,9 @@
     "express": "^4.11.2",
     "handlebars": "^3.0.0",
     "node-jsx": "^0.12.4",
-    "react": "^0.12.2"
+    "react": "^0.12.2",
+    "react-router": "^0.12.4",
+    "superagent": "^0.21.0"
   },
   "devDependencies": {
     "jsx-loader": "^0.12.2",

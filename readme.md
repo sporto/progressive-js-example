@@ -3,11 +3,20 @@ Progressive JS example using React
 
 This minimal app demostrate rendering React components on the server and the front end
 
+This demo uses:
+
+- React
+- React Router
+- Node
+- Webpack
+- Superagent for AJAX
+
 ## TODO
 
-- Send a form via AJAX + no AJAX when JS is not available
-- Pass parameters to the backend in the query string
-- Get information from an API in the front end and backend
+- Render different routes on the server ✔
+- Pass parameters to the backend in the query string ✔
+- Pre fetch information on the server (Not much luck with this yet as components render sync)
+- Demostrate a form with AJAX and without
 
 ## Setup dev:
 

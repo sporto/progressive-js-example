@@ -1,15 +1,18 @@
 var React          = require('react');
-var Main           = require('../components/main.jsx');
+var Router         = require('react-router');
+var Routes         = require('../client/routes.jsx');
 var layoutTemplate = require('./layout');
 
 module.exports = function (req, res) {
-	var renderedComponent = React.renderToString(
-		Main({})
-	);
+	// TODO we need to fetch the data before rending the app
+	return Router.run(Routes, req.url, function(Handler) {
+		var element = React.createElement(Handler);
+		var renderedComponent = React.renderToString(element);
+		var renderedLayout = layoutTemplate({
+			content: renderedComponent
+		});
 
-	var renderedLayout = layoutTemplate({
-		content: renderedComponent
+		return res.send(renderedLayout);
 	});
 
-	return res.send(renderedLayout);
 }
