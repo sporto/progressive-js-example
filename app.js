@@ -2,7 +2,7 @@
 require('node-jsx').install();
 
 var express     = require('express');
-var MainHandler = require('./handlers/main');
+var MainHandler = require('./handlers/main.jsx');
 
 var app = express();
 app.use(express.static(__dirname + '/public'));

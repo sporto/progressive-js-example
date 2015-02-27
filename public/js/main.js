@@ -46,6 +46,8 @@
 
 	/** @jsx React.DOM */
 
+	// This file is only called client side
+
 	var React         = __webpack_require__(5);
 	var Router        = __webpack_require__(6);
 	var Routes         = __webpack_require__(204);
@@ -23259,6 +23261,34 @@
 
 	module.exports = React.createClass({
 
+		statics: {
+			fetchData: function (params, query) {
+				console.log(params);
+				console.log(query);
+
+				if (!query.keyword) throw new Error('query.keyword required');
+
+				var keyword = query.keyword;
+
+				var url = "https://rubygems.org/api/v1/search.json?query=" + keyword;
+				url = 'http://cors.maxogden.com/' + url;
+				console.log('url', url);
+
+				return SA.get(url)
+					.type('json')
+					.end(function (error, res) {
+						// console.log(error);
+						// console.log(res.body);
+						// if (res) {
+						// 	comp.setState({
+						// 		libraries: res.body,
+						// 		busy: false
+						// 	});
+						// }
+					});
+			}
+		},
+
 		displayName: '/client/components/libraries-st.jsx',
 
 		mixins : [Router.Navigation, Router.State],
@@ -23304,22 +23334,8 @@
 					libraries: []
 				});
 
-				var url = "https://rubygems.org/api/v1/search.json?query=" + keyword;
-				url = 'http://cors.maxogden.com/' + url;
-				console.log('url', url);
+				// this.prototype.fetchData()
 
-				return SA.get(url)
-					.type('json')
-					.end(function (error, res) {
-						console.log(error);
-						console.log(res.body);
-						if (res) {
-							comp.setState({
-								libraries: res.body,
-								busy: false
-							});
-						}
-					});
 			}
 		},
 

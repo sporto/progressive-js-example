@@ -1,5 +1,7 @@
 /** @jsx React.DOM */
 
+// This file is only called client side
+
 var React         = require('react');
 var Router        = require('react-router');
 var Routes         = require('./routes.jsx');
