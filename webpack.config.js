@@ -16,6 +16,7 @@ module.exports = {
 			{ test: /\.css/,     loader: "style-loader!css-loader" },
 			{ test: /\.less$/,   loader: "less" },
 			{ test: /\.jsx$/,    loader: "jsx-loader?stripTypes" },
+			{ test: /\.es6$/,    loader: 'babel-loader'}
 		]
 	},
 	resolve: {

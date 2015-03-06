@@ -22,6 +22,7 @@ module.exports = React.createClass({
 
 	componentWillMount: function() {
 		console.log(this.displayName, 'componentWillMount');
+		console.log(this.displayName, this.props)
 		return this.getItems();
 	},
 
