@@ -82,7 +82,7 @@ class Main extends React.Component {
 				<SearchForm
 					keyword={this.state.keyword}
 					busy={this.state.busy}
-					onSearch={this.onSearch}
+					onSearch={this.onSearch.bind(this)}
 					/>
 				<br />
 				{this.renderList()}

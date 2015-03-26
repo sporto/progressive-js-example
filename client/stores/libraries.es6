@@ -1,4 +1,4 @@
-var Marty = require('marty');
+import Marty      from 'marty';
 // var imm   = require('imm');
 
 export default class LibrariesStore extends Marty.Store {
