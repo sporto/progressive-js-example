@@ -1,42 +1,28 @@
-/** @jsx React.DOM */
+import React      from 'react';
+import Router     from 'react-router';
+import Marty      from 'marty';
+import SA         from 'superagent';
+import List       from './list.ex6';
+import SearchForm from './search_form.ex6';
+import LibrariesStore from '../../stores/libraries.es6';
 
-var React      = require('react');
-var List       = require('./list.jsx');
-var SearchForm = require('./search_form.jsx');
-var Router     = require('react-router');
-var SA         = require('superagent');
+class Main extends React.Component {
 
-module.exports = React.createClass({
-
-	displayName: '/client/components/libraries-st.jsx',
-
-	mixins : [Router.Navigation, Router.State],
-
-	getInitialState: function () {
-		return {
+	constructor() {
+		this.state = {
 			keyword: '',
 			busy: false,
 			libraries: []
 		}
-	},
+	}
 
-	componentWillMount: function() {
-		console.log(this.displayName, 'componentWillMount');
-		return this.getItems();
-	},
-
-	componentWillReceiveProps: function (props) {
-		console.log(this.displayName, 'componentWillReceiveProps');
-		return this.getItems();
-	},
-
-	onSearch: function (keyword) {
+	onSearch(keyword) {
 		if (keyword) {
 			if (keyword !== this.state.keyword) this.transitionTo('libraries', {}, {keyword: keyword});
 		}
-	},
+	}
 
-	getItems: function () {
+	getItems() {
 		console.log(this.displayName, 'getItems');
 
 		var comp = this;
@@ -70,9 +56,9 @@ module.exports = React.createClass({
 					}
 				});
 		}
-	},
+	}
 
-	renderList: function () {
+	renderList() {
 		if (this.state.busy) {
 			return (
 				<div className="alert alert-info" role="alert">Searching ...</div>
@@ -86,9 +72,9 @@ module.exports = React.createClass({
 		}
 
 		return <List libraries={this.state.libraries} />
-	},
+	}
 
-	render: function () {
+	render() {
 
 		return (
 			<section>
@@ -101,6 +87,28 @@ module.exports = React.createClass({
 				<br />
 				{this.renderList()}
 			</section>
-		);
+		)
 	}
-});
+
+}
+
+module.exports = Marty.createContainer(Main, {
+	listenTo: LibrariesStore,
+
+	fetch: {
+		libraries() {
+			// return LibrariesStore.for(this).all();
+			return [];
+		}
+	},
+
+	failed(errors) {
+		return <div className="User User-failedToLoad">{errors}</div>;
+	},
+
+	pending() {
+		return this.done({
+			libraries: []
+		});
+	}
+})

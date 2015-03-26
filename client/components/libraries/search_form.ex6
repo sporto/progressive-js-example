@@ -1,38 +1,26 @@
-/** @jsx React.DOM */
+import React from 'react';
 
-var React      = require('react');
-// var Router     = require('react-router');
+export default class SearchForm extends React.Component {
 
-module.exports = React.createClass({
-
-	displayName: '/client/components/libraries/search_form.jsx',
-
-	// mixins : [Router.Navigation, Router.State],
-
-	propTypes: {
-		onSearch: React.PropTypes.func.isRequired,
-		keyword:  React.PropTypes.string
-	},
-
-	getInitialState: function () {
-		return {
-			keyword: this.props.keyword
+	constructor(props) {
+		this.state = {
+			keyword: props.keyword
 		}
-	},
+	}
 
-	onQueryChange: function (event) {
+	onQueryChange(event) {
 		this.setState({keyword: event.target.value});
-	},
+	}
 
-	onSearch: function () {
+	onSearch() {
 		var keyword = this.state.keyword;
 		if (keyword) {
 			this.props.onSearch(keyword);
 		}
 		return false;
-	},
+	}
 
-	render: function () {
+	render() {
 		return (
 			<form className="form-inline">
 				<div className="form-group">
@@ -50,4 +38,9 @@ module.exports = React.createClass({
 		);
 	}
 
-});
+}
+
+SearchForm.propTypes = {
+	onSearch: React.PropTypes.func.isRequired,
+	keyword:  React.PropTypes.string
+}

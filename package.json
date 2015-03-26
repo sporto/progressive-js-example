@@ -19,6 +19,8 @@
     "superagent": "^0.21.0"
   },
   "devDependencies": {
+    "babel-core": "^4.7.16",
+    "babel-loader": "^4.2.0",
     "jsx-loader": "^0.12.2",
     "style-loader": "^0.8.3",
     "webpack": "^1.5.3"

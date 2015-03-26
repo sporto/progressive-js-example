@@ -1,13 +1,12 @@
-/** @jsx React.DOM */
+import React from 'react';
+import Router from 'react-router';
 
-var React          = require('react');
-var Router         = require('react-router');
 var Link           = Router.Link;
 var RouteHandler   = Router.RouteHandler;
 
-module.exports = React.createClass({
+export default class Root extends React.Component {
 
-	render: function () {
+	render() {
 		return (
 			<section>
 				<h1>Root</h1>
@@ -24,4 +23,4 @@ module.exports = React.createClass({
 		);
 	}
 
-});
+}

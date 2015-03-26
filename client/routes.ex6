@@ -1,15 +1,14 @@
-/** @jsx React.DOM */
+import React from 'react';
+import Router from 'react-router';
 
-var React         = require('react');
-var Router        = require('react-router');
 var Route         = Router.Route;
 var NotFoundRoute = Router.NotFoundRoute;
 var DefaultRoute  = Router.DefaultRoute;
 
-var Root          = require('./components/root.jsx');
-var Libraries     = require('./components/libraries/main.jsx');
-var People        = require('./components/people.jsx');
-var NotFound      = require('./components/not_found.jsx');
+import Root          from './components/root.ex6';
+import Libraries     from './components/libraries/main.ex6';
+import People        from './components/people.jsx';
+import NotFound      from './components/not_found.jsx';
 
 
 module.exports = (

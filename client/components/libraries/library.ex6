@@ -1,16 +1,16 @@
-/** @jsx React.DOM */
-
 // This is a stateless component
 
-var React = require('react');
+import React from 'react';
 
-module.exports = React.createClass({
+class Library extends React.Component {
 
-	propTypes: {
-		library: React.PropTypes.object.isRequired
-	},
+	constructor() {
+		this.propTypes = {
+			library: React.PropTypes.object.isRequired
+		}
+	}
 
-	render: function () {
+	render() {
 		var library = this.props.library;
 
 		return (
@@ -21,4 +21,7 @@ module.exports = React.createClass({
 			</tr>
 		);
 	}
-});
+
+}
+
+module.exports = Library;
