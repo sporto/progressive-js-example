@@ -15,7 +15,7 @@ module.exports = {
 			{ test: /\.less$/,   loader: "style-loader!css-loader!less-loader"},
 			{ test: /\.css/,     loader: "style-loader!css-loader" },
 			{ test: /\.less$/,   loader: "less" },
-			{ test: /\.js$/,     loader: "babel-loader" },
+			{ test: /\/marty\//, loader: "babel-loader" },
 			{ test: /\.es6$/,    loader: "babel-loader" },
 			{ test: /\.jsx$/,    loader: "jsx-loader?stripTypes" },
 			{ test: /\.ex6$/,    loader: "jsx-loader?stripTypes!babel-loader" },
@@ -23,7 +23,7 @@ module.exports = {
 	},
 	resolve: {
 		alias: {
-			
+			// marty: path.join(__dirname, 'node_modules/marty/dist/browser/marty.js')
 		}
 	},
 	plugins: []

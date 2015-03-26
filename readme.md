@@ -23,18 +23,27 @@ This demo uses:
 ```
 npm install
 npm install nodemon -g
+npm install -g foreman
 ```
 
-## To build assets
+## During development
+
+### Run Webpack with
 
 ```
 webpack --watch
 ```
 
-## To server Node front-end
+### To server Node front-end
 
 ```
 nodemon
+```
+
+### Or run both with:
+
+```
+nf start
 ```
 
 

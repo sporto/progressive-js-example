@@ -8,17 +8,19 @@ import LibrariesStore from '../../stores/libraries.es6';
 
 class Main extends React.Component {
 
-	constructor() {
+	constructor(props) {
+		// console.log(this.displayName, 'constructor', props)
 		this.state = {
-			keyword: '',
-			busy: false,
+			keyword:   '',
+			busy:      false,
 			libraries: []
 		}
 	}
 
 	onSearch(keyword) {
+		// console.log('onSearch', keyword);
 		if (keyword) {
-			if (keyword !== this.state.keyword) this.transitionTo('libraries', {}, {keyword: keyword});
+			if (keyword !== this.state.keyword) this.context.router.transitionTo('libraries', {}, {keyword: keyword});
 		}
 	}
 
@@ -91,6 +93,10 @@ class Main extends React.Component {
 	}
 
 }
+
+Main.contextTypes = {
+	router: React.PropTypes.func
+};
 
 module.exports = Marty.createContainer(Main, {
 	listenTo: LibrariesStore,
