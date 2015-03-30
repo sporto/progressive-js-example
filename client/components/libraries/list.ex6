@@ -1,34 +1,85 @@
-import React from 'react';
-import Router from 'react-router';
-import Library from './library.ex6';
+import React          from 'react';
+import Router         from 'react-router';
+import Marty          from 'marty';
+import Library        from './library.ex6';
+import librariesStore from '../../stores/libraries.es6';
+import Loader         from '../shared/loader.ex6';
 
 class List extends React.Component {
 
 	constructor() {
-		this.propTypes = {
-			libraries: React.PropTypes.array.isRequired
-		}
+
 	}
 
 	render() {
 		return (
-			<table className="table">
-				<thead>
-					<tr>
-						<td>Name</td>
-						<td>Authors</td>
-						<td>Home page</td>
-					</tr>
-				</thead>
-				<tbody>
-					{this.props.libraries.map(function (library, index) {
-						return (<Library key={library.id} library={library} />)
-					})}
-				</tbody>
-			</table>
+			<div>
+				{this.props.keyword}
+				<table className="table">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Authors</th>
+							<th>Home page</th>
+						</tr>
+					</thead>
+					<tbody>
+						{this.props.libraries.map(function (library, index) {
+							return (<Library key={library.id} library={library} />)
+						})}
+					</tbody>
+				</table>
+			</div>
 		)
 	}
 
 }
 
-module.exports = List;
+// List.propTypes = {
+// 	keyword: React.PropTypes.string.isRequired
+// }
+
+// http://martyjs.org/guides/containers/index.html
+
+// The container component will do this when first created and any time any 
+// store you specify in listenTo changes
+export default Marty.createContainer(List, {
+	// when librariesStore changes fetch will be called
+	listenTo: librariesStore,
+
+	// contextTypes: {
+	// 	router: React.PropTypes.func.isRequired
+	// },
+
+	propTypes: {
+		keyword: React.PropTypes.string.isRequired
+	},
+
+	// fetch is an object where the values are functions which are invoked 
+	// and the result is passed to the inner component as a prop.
+	fetch: {
+		libraries() {
+			var keyword = this.props.keyword;
+			console.log('List Container', 'libraries');
+			console.log('this.props.keyword', keyword);
+
+			if (keyword == null) throw new Error('keyword expected in props');
+			if (keyword == '') console.log('keyword is empty')
+			// var query = this.context.router.getCurrentQuery();
+			// var keyword = query.keyword;
+
+			return librariesStore.for(this).fetchLibraries(keyword);
+		}
+	},
+
+	failed(errors) {
+		return <div className="User User-failedToLoad">ERRORS {errors}</div>;
+	},
+
+	pending() {
+		// return this.done({
+		// 	libraries: null
+		// });
+		return <Loader />;
+	}
+})

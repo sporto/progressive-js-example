@@ -4,90 +4,68 @@ import Marty      from 'marty';
 import SA         from 'superagent';
 import List       from './list.ex6';
 import SearchForm from './search_form.ex6';
-import LibrariesStore from '../../stores/libraries.es6';
+import librariesStore from '../../stores/libraries.es6';
+import librariesActions from '../../actions/libraries.es6';
+import librariesQueries from '../../queries/libraries.es6';
 
 class Main extends React.Component {
 
-	constructor(props) {
-		// console.log(this.displayName, 'constructor', props)
-		this.state = {
-			keyword:   '',
-			busy:      false,
-			libraries: []
-		}
+	constructor(props, context) {
+		super(props);
+		console.log(this.displayName, 'constructor', props, context);
+		var keyword = this.getKeywordFromContext(context);
+		this.state = {keyword: keyword};
+	}
+
+	// Called when the route changes e.g. query string
+	componentWillReceiveProps(props) {
+		console.log(this.displayName, 'componentWillReceiveProps', props);
+		var keyword = this.getKeywordFromContext(this.context);
+		console.log('keyword', keyword)
+		this.setState({
+			keyword: keyword
+		});
+	}
+
+	getKeywordFromContext(context) {
+		console.log('getKeywordFromContext')
+		var query = context.router.getCurrentQuery();
+		return query.keyword || '';
+		// console.log('query', query);
+		// console.log('keyword', keyword);
 	}
 
 	onSearch(keyword) {
-		// console.log('onSearch', keyword);
-		if (keyword) {
-			if (keyword !== this.state.keyword) this.context.router.transitionTo('libraries', {}, {keyword: keyword});
-		}
-	}
-
-	getItems() {
-		console.log(this.displayName, 'getItems');
-
-		var comp = this;
-		var query   = this.getQuery();
-		var keyword = query.keyword;
-		console.log('keyword', keyword);
+		console.log(this.displayName, 'onSearch', keyword);
 
 		if (keyword) {
-			if (keyword === this.state.keyword) return;
-
-			this.setState({
-				keyword: keyword,
-				busy: true,
-				libraries: []
-			});
-
-			var url = "https://rubygems.org/api/v1/search.json?query=" + keyword;
-			url = 'http://cors.maxogden.com/' + url;
-			console.log('url', url);
-
-			return SA.get(url)
-				.type('json')
-				.end(function (error, res) {
-					console.log(error);
-					console.log(res.body);
-					if (res) {
-						comp.setState({
-							libraries: res.body,
-							busy: false
-						});
-					}
-				});
+			this.context.router.transitionTo('libraries', {}, {keyword: keyword});
 		}
-	}
-
-	renderList() {
-		if (this.state.busy) {
-			return (
-				<div className="alert alert-info" role="alert">Searching ...</div>
-			)
-		}
-
-		if (!this.state.keyword) {
-			return (
-				<div className="alert alert-warning" role="alert">Please enter a keyword</div>
-			)
-		}
-
-		return <List libraries={this.state.libraries} />
 	}
 
 	render() {
+		console.log(this.displayName, 'render')
+		var keyword = this.state.keyword;
+		var list = <div className="alert alert-warning" role="alert">Please enter a keyword</div>;
+		var title = <h2>Libraries</h2>;
+		if (keyword) {
+			list = <List keyword={keyword} />;
+			title = <h2>Libraries for {keyword}</h2>
+		}
+
+		console.log(this.displayName, 'keyword', keyword)
 
 		return (
 			<section>
-				<h2>Libraries</h2>
+				{title}
 				<SearchForm
-					keyword={this.state.keyword}
+					keyword={keyword}
 					busy={this.state.busy}
 					onSearch={this.onSearch.bind(this)}
 					/>
 				<br />
-				{this.renderList()}
+
+				{list}
 			</section>
 		)
 	}
@@ -95,26 +73,7 @@ class Main extends React.Component {
 }
 
 Main.contextTypes = {
-	router: React.PropTypes.func
+  router: React.PropTypes.func.isRequired
 };
 
-module.exports = Marty.createContainer(Main, {
-	listenTo: LibrariesStore,
-
-	fetch: {
-		libraries() {
-			// return LibrariesStore.for(this).all();
-			return [];
-		}
-	},
-
-	failed(errors) {
-		return <div className="User User-failedToLoad">{errors}</div>;
-	},
-
-	pending() {
-		return this.done({
-			libraries: []
-		});
-	}
-})
+export default Main;

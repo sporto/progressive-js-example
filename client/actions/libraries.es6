@@ -1,15 +1,21 @@
 import Marty      from 'marty';
+import librariesConstants from '../config/libraries_constants.es6';
 
 var Dispatcher = Marty.dispatcher.getDefault();
-var LibrariesConstants = Marty.createConstants(['REPLACE_LIBRARIES', 'ADD_LIBRARIES']);
 
 class LibrariesActionCreators extends Marty.ActionCreators {
 
-	replaceLibraries(libraries) {
-		this.dispatch(LibrariesConstants.REPLACE_LIBRARIES, libraries);
+	changeKeyword(keyword) {
+		this.dispatch(librariesConstants.CHANGE_KEYWORD, keyword);
 	}
 
-	addLibraries(libraries) {
-		this.dispatch(LibrariesConstants.ADD_LIBRARIES, libraries);
+	replaceLibraries(libraries) {
+		this.dispatch(librariesConstants.REPLACE_LIBRARIES, libraries);
 	}
+
+	// addLibraries(libraries) {
+	// 	this.dispatch(librariesConstants.ADD_LIBRARIES, libraries);
+	// }
 }
+
+export default Marty.register(LibrariesActionCreators);
