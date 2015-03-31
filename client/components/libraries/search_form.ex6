@@ -24,7 +24,7 @@ export default class SearchForm extends React.Component {
 		return (
 			<form className="form-inline">
 				<div className="form-group">
-					<label for="keyword">Keyword</label>&nbsp;
+					<label htmlFor="keyword">Keyword</label>&nbsp;
 					<input type="text"
 						name="keyword"
 						className="form-control"

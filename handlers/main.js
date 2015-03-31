@@ -3,6 +3,7 @@ var Router         = require('react-router');
 var Routes         = require('../client/routes.ex6');
 var layoutTemplate = require('./layout');
 var Marty          = require('marty');
+var log            = require('loglevel');
 
 function nonIso(req, res) {
 	var renderedLayout = layoutTemplate({
@@ -13,8 +14,9 @@ function nonIso(req, res) {
 }
 
 
-function iso(req, res) {
-	return Router.run(Routes, req.url, function(Handler) {
+function iso(req, res, next) {
+
+	return Router.run(Routes, req.url, function(Handler, state) {
 		console.log('Running routes', req.url);
 
 		var context = Marty.createContext();
@@ -25,15 +27,15 @@ function iso(req, res) {
 		var renderOptions = {
 			type: Handler,
 			context: context,
-			// props: state.params,
+			props: state.params,
 			// timeout: options.timeout
 		};
 
 		function onRendered(renderedComponent) {
-			// console.log('renderedComponent');
+			log.info('onRendered', renderedComponent);
 
 			var renderedLayout = layoutTemplate({
-				content: renderedComponent
+				content: renderedComponent.html
 			});
 
 			res.send(renderedLayout).end();

@@ -1,7 +1,7 @@
 import Marty              from 'marty';
-import librariesQuery     from '../queries/libraries.es6';
 import librariesConstants from '../config/libraries_constants.es6';
 import libraryQueries     from '../queries/libraries.es6';
+import log                from 'loglevel';
 // import is               from 'is_js';
 
 // var imm   = require('imm');
@@ -23,12 +23,12 @@ class LibrariesStore extends Marty.Store {
 	onKeywordChanged(keyword) {
 		this.state['keyword'] = keyword;
 		// trigger a refresh of libraries
-		libraryQueries.getLibraries(keyword);
+		libraryQueries.for(this).getLibraries(keyword);
 		this.hasChanged();
 	}
 
 	onLibrariesFetched(keyword, libs) {
-		// console.log(this.displayName, 'onLibrariesFetched', keyword, libs);
+		log.info('LibrariesStore.onLibrariesFetched', keyword, libs);
 		var collection = this.state.collection;
 		collection[keyword] = libs;
 		this.state['collection'] = collection;
@@ -36,18 +36,18 @@ class LibrariesStore extends Marty.Store {
 	}
 
 	fetchLibraries(keyword) {
-		// console.log('LibrariesStore.fetchLibraries', keyword);
+		log.info('LibrariesStore.fetchLibraries', keyword);
 		if (keyword == null) throw new Error('keyword required');
 
 		return this.fetch({
-			id: keyword,
+			id:      keyword,
 			locally: function () {
-				// console.log('fetchLibraries.fetch.locally', keyword)
+				log.info('fetchLibraries.fetch.locally', keyword)
 				return this.state.collection[keyword];
 			},
 			remotely: function () {
-				// console.log('fetchLibraries.fetch.remotely', keyword)
-				return librariesQuery.for(this).fetchLibraries(keyword);
+				log.info('fetchLibraries.fetch.remotely', keyword)
+				return libraryQueries.for(this).fetchLibraries(keyword);
 			}
 		});
 	}

@@ -1,42 +1,38 @@
-import React      from 'react';
-import Router     from 'react-router';
-import Marty      from 'marty';
-import SA         from 'superagent';
-import List       from './list.ex6';
-import SearchForm from './search_form.ex6';
-import librariesStore from '../../stores/libraries.es6';
-import librariesActions from '../../actions/libraries.es6';
-import librariesQueries from '../../queries/libraries.es6';
+import React              from 'react';
+import Router             from 'react-router';
+import Marty              from 'marty';
+import SA                 from 'superagent';
+import List               from './list.ex6';
+import SearchForm         from './search_form.ex6';
+import log                from 'loglevel';
 
 class Main extends React.Component {
 
 	constructor(props, context) {
 		super(props);
-		// console.log(this.displayName, 'constructor', props, context);
+		// log.info(this.displayName, 'constructor', props, context);
 		var keyword = this.getKeywordFromContext(context);
 		this.state = {keyword: keyword};
 	}
 
 	// Called when the route changes e.g. query string
 	componentWillReceiveProps(props) {
-		// console.log(this.displayName, 'componentWillReceiveProps', props);
+		log.info(this.constructor.displayName, 'componentWillReceiveProps', props);
 		var keyword = this.getKeywordFromContext(this.context);
-		console.log('keyword', keyword)
+
 		this.setState({
 			keyword: keyword
 		});
 	}
 
 	getKeywordFromContext(context) {
-		// console.log('getKeywordFromContext')
+		log.info(this.constructor.displayName, 'getKeywordFromContext')
 		var query = context.router.getCurrentQuery();
 		return query.keyword || '';
-		// console.log('query', query);
-		// console.log('keyword', keyword);
 	}
 
 	onSearch(keyword) {
-		// console.log(this.displayName, 'onSearch', keyword);
+		log.info(this.constructor.displayName, 'onSearch', keyword);
 
 		if (keyword) {
 			this.context.router.transitionTo('libraries', {}, {keyword: keyword});
@@ -44,7 +40,8 @@ class Main extends React.Component {
 	}
 
 	render() {
-		// console.log(this.displayName, 'render')
+		log.info(this.constructor.displayName, 'render')
+
 		var keyword = this.state.keyword;
 		var list = <div className="alert alert-warning" role="alert">Please enter a keyword</div>;
 		var title = <h2>Libraries</h2>;
@@ -53,7 +50,7 @@ class Main extends React.Component {
 			title = <h2>Libraries for {keyword}</h2>
 		}
 
-		// console.log(this.displayName, 'keyword', keyword)
+		// log.info(this.displayName, 'keyword', keyword)
 
 		return (
 			<section>
@@ -71,6 +68,8 @@ class Main extends React.Component {
 	}
 
 }
+
+Main.displayName = 'Main'
 
 Main.contextTypes = {
 	router: React.PropTypes.func.isRequired
