@@ -1,7 +1,7 @@
 Progressive JS example using React
 =====================
 
-This minimal app demostrate rendering React components on the server and the front end
+This minimal app demonstrate rendering React components on the server and the front end
 
 This demo uses:
 
@@ -10,6 +10,7 @@ This demo uses:
 - Node
 - Webpack
 - Superagent for AJAX
+- Marty.js for Flux
 
 ## TODO
 

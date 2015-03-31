@@ -9,13 +9,11 @@ export default class SearchForm extends React.Component {
 	}
 
 	onQueryChange(event) {
-		// console.log('onQueryChange')
 		this.setState({keyword: event.target.value});
 	}
 
 	onSearch(event) {
 		event.preventDefault();
-		// console.log('onSearch')
 		var keyword = this.state.keyword;
 		if (keyword) {
 			this.props.onSearch(keyword);

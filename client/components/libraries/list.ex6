@@ -35,21 +35,10 @@ class List extends React.Component {
 
 }
 
-// List.propTypes = {
-// 	keyword: React.PropTypes.string.isRequired
-// }
-
 // http://martyjs.org/guides/containers/index.html
-
-// The container component will do this when first created and any time any 
-// store you specify in listenTo changes
 export default Marty.createContainer(List, {
 	// when librariesStore changes fetch will be called
 	listenTo: librariesStore,
-
-	// contextTypes: {
-	// 	router: React.PropTypes.func.isRequired
-	// },
 
 	propTypes: {
 		keyword: React.PropTypes.string.isRequired
@@ -65,8 +54,6 @@ export default Marty.createContainer(List, {
 
 			if (keyword == null) throw new Error('keyword expected in props');
 			if (keyword == '') console.log('keyword is empty')
-			// var query = this.context.router.getCurrentQuery();
-			// var keyword = query.keyword;
 
 			return librariesStore.for(this).fetchLibraries(keyword);
 		}
@@ -77,9 +64,6 @@ export default Marty.createContainer(List, {
 	},
 
 	pending() {
-		// return this.done({
-		// 	libraries: null
-		// });
 		return <Loader />;
 	}
 })

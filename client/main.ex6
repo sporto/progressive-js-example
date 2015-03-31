@@ -1,7 +1,10 @@
-import React from 'react';
+import log    from 'loglevel';
+import React  from 'react';
 import Router from 'react-router';
 import Routes from './routes.ex6';
-import Main from './components/root.ex6';
+import Main   from './components/root.ex6';
+
+log.setLevel('info');
 
 Router.run(Routes, Router.HistoryLocation, function (Handler) {
 	if (typeof document !== 'undefined' && document) {
