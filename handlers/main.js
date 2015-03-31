@@ -31,11 +31,13 @@ function iso(req, res, next) {
 			// timeout: options.timeout
 		};
 
-		function onRendered(renderedComponent) {
-			log.info('onRendered', renderedComponent);
+		function onRendered(renderResult) {
+			log.info('onRendered', renderResult);
+
+			var html = renderResult.html;
 
 			var renderedLayout = layoutTemplate({
-				content: renderedComponent.html
+				content: html
 			});
 
 			res.send(renderedLayout).end();
