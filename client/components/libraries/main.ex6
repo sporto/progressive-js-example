@@ -12,14 +12,14 @@ class Main extends React.Component {
 
 	constructor(props, context) {
 		super(props);
-		console.log(this.displayName, 'constructor', props, context);
+		// console.log(this.displayName, 'constructor', props, context);
 		var keyword = this.getKeywordFromContext(context);
 		this.state = {keyword: keyword};
 	}
 
 	// Called when the route changes e.g. query string
 	componentWillReceiveProps(props) {
-		console.log(this.displayName, 'componentWillReceiveProps', props);
+		// console.log(this.displayName, 'componentWillReceiveProps', props);
 		var keyword = this.getKeywordFromContext(this.context);
 		console.log('keyword', keyword)
 		this.setState({
@@ -28,7 +28,7 @@ class Main extends React.Component {
 	}
 
 	getKeywordFromContext(context) {
-		console.log('getKeywordFromContext')
+		// console.log('getKeywordFromContext')
 		var query = context.router.getCurrentQuery();
 		return query.keyword || '';
 		// console.log('query', query);
@@ -36,7 +36,7 @@ class Main extends React.Component {
 	}
 
 	onSearch(keyword) {
-		console.log(this.displayName, 'onSearch', keyword);
+		// console.log(this.displayName, 'onSearch', keyword);
 
 		if (keyword) {
 			this.context.router.transitionTo('libraries', {}, {keyword: keyword});
@@ -44,7 +44,7 @@ class Main extends React.Component {
 	}
 
 	render() {
-		console.log(this.displayName, 'render')
+		// console.log(this.displayName, 'render')
 		var keyword = this.state.keyword;
 		var list = <div className="alert alert-warning" role="alert">Please enter a keyword</div>;
 		var title = <h2>Libraries</h2>;
@@ -53,7 +53,7 @@ class Main extends React.Component {
 			title = <h2>Libraries for {keyword}</h2>
 		}
 
-		console.log(this.displayName, 'keyword', keyword)
+		// console.log(this.displayName, 'keyword', keyword)
 
 		return (
 			<section>
@@ -73,7 +73,7 @@ class Main extends React.Component {
 }
 
 Main.contextTypes = {
-  router: React.PropTypes.func.isRequired
+	router: React.PropTypes.func.isRequired
 };
 
 export default Main;

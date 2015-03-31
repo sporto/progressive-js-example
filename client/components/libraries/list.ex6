@@ -49,8 +49,8 @@ export default Marty.createContainer(List, {
 	fetch: {
 		libraries() {
 			var keyword = this.props.keyword;
-			console.log('List Container', 'libraries');
-			console.log('this.props.keyword', keyword);
+			// console.log('List Container', 'libraries');
+			// console.log('this.props.keyword', keyword);
 
 			if (keyword == null) throw new Error('keyword expected in props');
 			if (keyword == '') console.log('keyword is empty')

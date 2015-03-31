@@ -1,7 +1,7 @@
-import Marty          from 'marty';
-import librariesQuery from '../queries/libraries.es6';
+import Marty              from 'marty';
+import librariesQuery     from '../queries/libraries.es6';
 import librariesConstants from '../config/libraries_constants.es6';
-import libraryQueries   from '../queries/libraries.es6';
+import libraryQueries     from '../queries/libraries.es6';
 // import is               from 'is_js';
 
 // var imm   = require('imm');
@@ -16,9 +16,7 @@ class LibrariesStore extends Marty.Store {
 		};
 
 		this.handlers = {
-			// onKeywordChanged:   librariesConstants.ON_KEYWORD_CHANGED,
 			onLibrariesFetched: librariesConstants.ON_LIBRARIES_FETCHED,
-			// addLibraries:       LibraryConstants.ADD_LIBRARIES
 		}
 	}
 
@@ -30,41 +28,26 @@ class LibrariesStore extends Marty.Store {
 	}
 
 	onLibrariesFetched(keyword, libs) {
-		console.log(this.displayName, 'onLibrariesFetched', keyword, libs);
+		// console.log(this.displayName, 'onLibrariesFetched', keyword, libs);
 		var collection = this.state.collection;
 		collection[keyword] = libs;
 		this.state['collection'] = collection;
 		this.hasChanged();
 	}
 
-	// addLibraries(libs) {
-	// 	var collection = this.state['collection'];
-	// 	this.state['collection'] = collection.push(libs);
-	// }
-
 	fetchLibraries(keyword) {
-		console.log('LibrariesStore.fetchLibraries', keyword);
+		// console.log('LibrariesStore.fetchLibraries', keyword);
 		if (keyword == null) throw new Error('keyword required');
-
-		// var self = this;
-		// if (is.not.string(keyword)) throw new Error('keyword required');
 
 		return this.fetch({
 			id: keyword,
 			locally: function () {
-				console.log('fetchLibraries.fetch.locally', keyword)
-				// console.log('collection', this.state.collection)
-				// console.log('collection', self.state.collection)
-				// console.log('collection[keyword]', self.state.collection[keyword])
-				// throw new Error('ddkdkdk')
-				// return void(0);
+				// console.log('fetchLibraries.fetch.locally', keyword)
 				return this.state.collection[keyword];
 			},
 			remotely: function () {
-				console.log('fetchLibraries.fetch.remotely', keyword)
-				// console.log(librariesQuery)
-				// console.log(librariesQuery.fetchLibraries)
-				return librariesQuery.fetchLibraries(keyword);
+				// console.log('fetchLibraries.fetch.remotely', keyword)
+				return librariesQuery.for(this).fetchLibraries(keyword);
 			}
 		});
 	}
