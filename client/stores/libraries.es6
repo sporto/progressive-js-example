@@ -10,6 +10,8 @@ class LibrariesStore extends Marty.Store {
 	constructor(options) {
 		super(options);
 
+		this.id = 'LibrariesStore';
+
 		this.state = {
 			keyword:    '',
 			collection: {}
@@ -43,6 +45,7 @@ class LibrariesStore extends Marty.Store {
 			id:      keyword,
 			locally: function () {
 				log.info('fetchLibraries.fetch.locally', keyword)
+				log.info('collection', this.state.collection[keyword]);
 				return this.state.collection[keyword];
 			},
 			remotely: function () {

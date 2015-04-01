@@ -24,7 +24,7 @@ class List extends React.Component {
 					</thead>
 					<tbody>
 						{this.props.libraries.map(function (library, index) {
-							return (<Library key={library.id} library={library} />)
+							return (<Library key={library.name} library={library} />)
 						})}
 					</tbody>
 				</table>
