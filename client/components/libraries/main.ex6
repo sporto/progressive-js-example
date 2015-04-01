@@ -69,7 +69,7 @@ class Main extends React.Component {
 
 }
 
-Main.displayName = 'Main'
+Main.displayName = 'Libraries::Main'
 
 Main.contextTypes = {
 	router: React.PropTypes.func.isRequired

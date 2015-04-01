@@ -508,7 +508,7 @@
 		return Main;
 	})(React.Component);
 
-	Main.displayName = "Main";
+	Main.displayName = "Libraries::Main";
 
 	Main.contextTypes = {
 		router: React.PropTypes.func.isRequired
@@ -8836,27 +8836,35 @@
 			};
 
 			this.handlers = {
-				onLibrariesFetched: librariesConstants.ON_LIBRARIES_FETCHED };
+				onLibrariesFetched: librariesConstants.ON_LIBRARIES_FETCHED,
+				onLibrariesFetchedFailed: librariesConstants.ON_LIBRARIES_FETCH_FAILED
+			};
 		}
 
 		_inherits(LibrariesStore, _Marty$Store);
 
 		_createClass(LibrariesStore, {
-			onKeywordChanged: {
-				value: function onKeywordChanged(keyword) {
-					this.state.keyword = keyword;
-					// trigger a refresh of libraries
-					libraryQueries["for"](this).getLibraries(keyword);
-					this.hasChanged();
-				}
-			},
 			onLibrariesFetched: {
+
+				// onKeywordChanged(keyword) {
+				// 	log.info('LibrariesStore.onKeywordChanged', keyword);
+				// 	this.state['keyword'] = keyword;
+				// 	// trigger a refresh of libraries
+				// 	libraryQueries.for(this).getLibraries(keyword);
+				// 	this.hasChanged();
+				// }
+
 				value: function onLibrariesFetched(keyword, libs) {
 					log.info("LibrariesStore.onLibrariesFetched", keyword, libs);
 					var collection = this.state.collection;
 					collection[keyword] = libs;
 					this.state.collection = collection;
 					this.hasChanged();
+				}
+			},
+			onLibrariesFetchedFailed: {
+				value: function onLibrariesFetchedFailed(keyword, error) {
+					log.error("onLibrariesFetchedFailed", error);
 				}
 			},
 			fetchLibraries: {

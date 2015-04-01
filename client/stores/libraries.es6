@@ -18,16 +18,18 @@ class LibrariesStore extends Marty.Store {
 		};
 
 		this.handlers = {
-			onLibrariesFetched: librariesConstants.ON_LIBRARIES_FETCHED,
+			onLibrariesFetched:       librariesConstants.ON_LIBRARIES_FETCHED,
+			onLibrariesFetchedFailed: librariesConstants.ON_LIBRARIES_FETCH_FAILED
 		}
 	}
 
-	onKeywordChanged(keyword) {
-		this.state['keyword'] = keyword;
-		// trigger a refresh of libraries
-		libraryQueries.for(this).getLibraries(keyword);
-		this.hasChanged();
-	}
+	// onKeywordChanged(keyword) {
+	// 	log.info('LibrariesStore.onKeywordChanged', keyword);
+	// 	this.state['keyword'] = keyword;
+	// 	// trigger a refresh of libraries
+	// 	libraryQueries.for(this).getLibraries(keyword);
+	// 	this.hasChanged();
+	// }
 
 	onLibrariesFetched(keyword, libs) {
 		log.info('LibrariesStore.onLibrariesFetched', keyword, libs);
@@ -35,6 +37,10 @@ class LibrariesStore extends Marty.Store {
 		collection[keyword] = libs;
 		this.state['collection'] = collection;
 		this.hasChanged();
+	}
+
+	onLibrariesFetchedFailed(keyword, error) {
+		log.error('onLibrariesFetchedFailed', error)
 	}
 
 	fetchLibraries(keyword) {
