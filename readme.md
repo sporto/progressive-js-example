@@ -5,19 +5,17 @@ This minimal app demonstrate rendering React components on the server and the fr
 
 This demo uses:
 
-- React
-- React Router
-- Node
-- Webpack
-- Superagent for AJAX
-- Marty.js for Flux
+- [React](https://facebook.github.io/react/)
+- [React Router](https://github.com/rackt/react-router)
+- [Node](https://nodejs.org/)
+- [Webpack](http://webpack.github.io/)
+- [Marty.js](http://martyjs.org/) for Flux
 
-## TODO
 
 - Render different routes on the server ✔
 - Pass parameters to the backend in the query string ✔
-- Pre fetch information on the server (Not much luck with this yet as components render sync)
-- Demostrate a form with AJAX and without
+- Pre fetch information on the server ✔
+- Demostrate a form with AJAX and without (TO DO)
 
 ## Setup dev:
 
