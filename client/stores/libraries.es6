@@ -2,9 +2,7 @@ import Marty              from 'marty';
 import librariesConstants from '../config/libraries_constants.es6';
 import libraryQueries     from '../queries/libraries.es6';
 import log                from 'loglevel';
-// import is               from 'is_js';
-
-// var imm   = require('imm');
+import imm                from 'imm';
 
 class LibrariesStore extends Marty.Store {
 	constructor(options) {
@@ -23,19 +21,9 @@ class LibrariesStore extends Marty.Store {
 		}
 	}
 
-	// onKeywordChanged(keyword) {
-	// 	log.info('LibrariesStore.onKeywordChanged', keyword);
-	// 	this.state['keyword'] = keyword;
-	// 	// trigger a refresh of libraries
-	// 	libraryQueries.for(this).getLibraries(keyword);
-	// 	this.hasChanged();
-	// }
-
 	onLibrariesFetched(keyword, libs) {
 		log.info('LibrariesStore.onLibrariesFetched', keyword, libs);
-		var collection = this.state.collection;
-		collection[keyword] = libs;
-		this.state['collection'] = collection;
+		this.state.collection[keyword] = imm(libs);
 		this.hasChanged();
 	}
 
