@@ -16,11 +16,9 @@
     "is_js": "^0.7.3",
     "loglevel": "^1.2.0",
     "marty": "^0.9.6",
-    "marty-express": "^0.2.0",
     "node-jsx": "^0.12.4",
     "react": "^0.13.1",
-    "react-router": "^0.13.2",
-    "superagent": "^0.21.0"
+    "react-router": "^0.13.2"
   },
   "devDependencies": {
     "babel-core": "^4.7.16",

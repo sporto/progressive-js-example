@@ -7,7 +7,13 @@ class LibrariesAPI extends Marty.HttpStateSource {
 		log.info('LibrariesAPI.fetchLibraries', keyword);
 
 		var url = "https://rubygems.org/api/v1/search.json?query=" + keyword;
-		url = 'http://cors.maxogden.com/' + url;
+
+		if (typeof window === 'undefined') {
+
+		} else {
+			url = 'http://cors.maxogden.com/' + url;
+		}
+
 		return this.get(url);
 	}
 

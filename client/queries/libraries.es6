@@ -10,7 +10,10 @@ class LibrariesQueries extends Marty.Queries {
 
 		return librariesAPI.for(this).fetchLibraries(keyword)
 			.then(res => this.dispatch(librariesConstants.ON_LIBRARIES_FETCHED, keyword, res.body))
-			.catch(err => this.dispatch(librariesConstants.ON_LIBRARIES_FETCH_FAILED, keyword, err));
+			.catch(err => {
+				log.error('Fetch error', err);
+				this.dispatch(librariesConstants.ON_LIBRARIES_FETCH_FAILED, keyword, err)
+			});
 		}
 
 }

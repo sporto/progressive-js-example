@@ -19,7 +19,7 @@ class LibrariesStore extends Marty.Store {
 
 		this.handlers = {
 			onLibrariesFetched:       librariesConstants.ON_LIBRARIES_FETCHED,
-			onLibrariesFetchedFailed: librariesConstants.ON_LIBRARIES_FETCH_FAILED
+			// onLibrariesFetchedFailed: librariesConstants.ON_LIBRARIES_FETCH_FAILED
 		}
 	}
 

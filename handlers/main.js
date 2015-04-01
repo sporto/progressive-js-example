@@ -25,10 +25,10 @@ function iso(req, res, next) {
 		context.res = res;
 
 		var renderOptions = {
-			type: Handler,
+			type:    Handler,
 			context: context,
-			props: state.params,
-			// timeout: options.timeout
+			props:   state.params,
+			timeout: 5000
 		};
 
 		function onRendered(renderResult) {

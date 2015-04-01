@@ -4,6 +4,7 @@ import Marty          from 'marty';
 import Library        from './library.ex6';
 import librariesStore from '../../stores/libraries.es6';
 import Loader         from '../shared/loader.ex6';
+import log            from 'loglevel';
 
 class List extends React.Component {
 
@@ -57,7 +58,8 @@ export default Marty.createContainer(List, {
 	},
 
 	failed(errors) {
-		return <div className="User User-failedToLoad">ERRORS {errors}</div>;
+		log.error(errors);
+		return <div className="alert alert-danger" role="alert">Failed</div>;
 	},
 
 	pending() {
